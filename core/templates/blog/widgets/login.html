@@ -1,0 +1,51 @@
+<div id="tags"class="">
+</div>
+
+<style>
+#tags {
+    background-color: rgba(0,0,0,0.6);
+    margin-bottom: 20px;
+}
+</style>
+
+<script src="/static/lib/d3/d3.js"></script>
+<script src="/static/d3.layout.cloud.js"></script>
+<script>
+  var fill = d3.scale.category20();
+
+  d3.layout.cloud().size([250, 250])
+      .words([	"OllyDbg","PE","ASM","Django","Python","Java","Bootstrap","Gentoo","linux","Shell","OllyDbg","PE","ASM","Django","Python","Java","Bootstrap","Gentoo","linux","Shell","OllyDbg","PE","ASM","Django","Python","Java","Bootstrap","Gentoo","linux","Shell","OllyDbg","PE","ASM","Django","Python","Java","Bootstrap","Gentoo","linux","Shell","OllyDbg","PE","ASM","Django","Python","Java","Bootstrap","Gentoo","linux","Shell",
+              ].map(function(d) {
+        return {text: d, size: 10 + Math.random() * 30};
+      }))
+      .padding(5)
+      .rotate(function() { return ~~(Math.random() * 2) * 90; })
+      .font("Impact")
+      .fontSize(function(d) { return d.size; })
+      .on("end", draw)
+      .start();
+
+  function draw(words) {
+       d3.select("#tags").append("svg")
+        .attr("width", 250)
+        .attr("height", 250)
+      .append("g")
+        .attr("transform", "translate(125,125)");
+      for (var i=0; i< words.length;++i)
+      {
+        d3.select("g").append("text").text(words[i].text) .style("font-size", words[i].size)
+            .style("font-family", "Impact")
+            .style("fill", fill(i))
+            .attr("text-anchor", "middle")
+            .attr("transform", 
+          "translate(" + [words[i].x, words[i].y] + ")rotate(" + words[i].rotate + ")"
+        )
+
+
+      }
+  }
+</script>
+
+
+
+
